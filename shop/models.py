@@ -12,5 +12,5 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
     categories = models.ManyToManyField(Category)
+    ordered = models.BooleanField(default=False)
