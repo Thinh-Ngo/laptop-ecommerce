@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.views import View
 from django.views.generic import ListView
 from marketing.models import PotentialClient
+from .models import Item
 
 
 class HomePage(View):
@@ -26,3 +27,4 @@ class HomePage(View):
 
 class Catalog(ListView):
     template_name = 'catalog.html'
+    model = Item
