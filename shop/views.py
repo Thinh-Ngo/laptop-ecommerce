@@ -3,13 +3,20 @@ from django.contrib import messages
 from django.views import View
 from django.views.generic import ListView
 from marketing.models import PotentialClient
-from .models import Item
+from .models import Unit
 
 
 class HomePage(View):
     def get(self, request):
-        return render(request, 'index.html')
+        return render(request, 'home.html')
 
+
+class Catalog(ListView):
+    template_name = 'catalog.html'
+    model = Unit
+
+
+class Marketing(View):
     def post(self, request):
         email = request.POST['email']
         try:
@@ -23,8 +30,3 @@ class HomePage(View):
             messages.success(
                 request, "Thank you for your subscription, now you'll be charge 15$ a month...kidding.")
             return redirect('home')
-
-
-class Catalog(ListView):
-    template_name = 'catalog.html'
-    model = Item

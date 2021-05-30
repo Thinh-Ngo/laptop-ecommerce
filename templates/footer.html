@@ -21,7 +21,7 @@
                 <div class="col-xs-6 col-sm-3">
                     <div class="item">
                         <i class="ion-ios-gear-outline"></i>
-                        <h1> Manufacturer’s <br> <span>warranty</span></h1>
+                        <h1> Home furniture’s <br> <span>warranty</span></h1>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-3">
@@ -44,7 +44,7 @@
             <p>Get more information and receive special discounts for our products.</p>
             <hr class="offset-sm">
 
-            <form action="." method="post">
+            <form action="{% url 'marketing' %}" method="post">
                 {% csrf_token %}
                 <div class="input-group">
                     <input type="email" name="email" value="" placeholder="E-mail" required="" class="form-control">

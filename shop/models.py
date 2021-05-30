@@ -9,31 +9,21 @@ class Category(models.Model):
         return self.title
 
 
-class Item(models.Model):
+class Unit(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
     categories = models.ManyToManyField(Category)
+    desciption = models.TextField()
+    image = models.FileField(blank=True)
 
     def __str__(self):
         return self.title
 
 
-class ItemInCart(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
-    ordered = models.BooleanField(default=False)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-
-
-class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
-    items = models.ManyToManyField(ItemInCart)
-    start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
-    ordered = models.BooleanField(default=False)
+class PostImage(models.Model):
+    post = models.ForeignKey(Unit, default=None, on_delete=models.CASCADE)
+    images = models.FileField(upload_to='images/')
 
     def __str__(self):
-        return self.user.username
+        return self.post.title

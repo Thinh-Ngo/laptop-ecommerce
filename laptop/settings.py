@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    # form
+    'crispy_forms',
 ]
 
 # All-auth configuration
@@ -111,6 +114,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'laptop.wsgi.application'
 
