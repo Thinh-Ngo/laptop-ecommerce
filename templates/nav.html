@@ -8,16 +8,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./"> <i class="glyphicon glyphicon-home"></i> Unitsale</a>
+            <a class="navbar-brand" href="{% url 'home' %}"> <i class="glyphicon glyphicon-home"></i> Unitsale</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="./">Home</a></li>
+                <li class="active"><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'catalog' %}">Storage</a></li>
-                <li><a href="./blog/">Policy</a></li>
+                <li><a href="{% url 'policy' %}">Policy</a></li>
                 <li><a href="./gallery/">Contact Us</a></li>
-                <li class="dropdown">
+                <!-- <li class="dropdown">
                     <a href="./catalog/" class="dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -33,11 +33,11 @@
                         <li><a href="./blog/item-video.html">Article Video</a></li>
                         <li><a href="./blog/item-review.html">Article Review</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
-                <li><a href="./login/"> <i class="ion-android-person"></i> Profile </a></li>
+                <li><a href="{% url 'profile' %}"><i class="ion-android-person"></i> Profile </a></li>
                 <li><a href="{% url 'account_logout' %}"> Logout</a></li>
                 {% else %}
                 <li><a href="{% url 'account_login' %}"> <i class="ion-android-person"></i> Login </a></li>

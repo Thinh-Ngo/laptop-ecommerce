@@ -1,7 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Unit, PostImage
+from .models import Unit, PostImage, PolicyContent
+
+
+admin.site.register(PolicyContent)
 
 
 class PostImageAdmin(admin.StackedInline):

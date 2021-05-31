@@ -36,6 +36,7 @@ class Client(AbstractBaseUser, PermissionsMixin):
         max_length=191,
         blank=True,
     )
+    profile_picture = models.ImageField(default='default.jpg')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 

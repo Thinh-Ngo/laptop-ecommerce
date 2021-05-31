@@ -1,9 +1,85 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls.base import reverse
 from django.contrib import messages
 from django.views import View
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
 from marketing.models import PotentialClient
-from .models import Unit
+from .models import PolicyContent, Unit
+from .forms import PolicyForm
+from clients.forms import ClientForm
+
+
+def view_policy(request):
+    policy = PolicyContent.objects.filter(
+        is_valid=True).order_by('-start_date')[0]
+    context = {
+        'policy': policy
+    }
+    return render(request, "policy_page.html", context)
+
+
+@login_required
+def create_policy(request):
+    title = 'create post'
+    form = PolicyForm(request.POST or None, request.FILES or None)
+    author = request.user
+    if request.method == "POST":
+        if form.is_valid():
+            form.instance.author = author
+            form.save()
+            return redirect("policy")
+    context = {
+        'form': form,
+        'title': title
+    }
+    return render(request, "create_policy.html", context)
+
+
+@login_required
+def profile(request):
+    if request.method == "POST":
+        p_form = ClientForm(
+            request.POST, request.FILES, instance=request.user
+        )
+        if p_form.is_valid():
+            p_form.save()
+            messages.success(request, f"You account has been updated")
+            return redirect("profile")
+
+    else:
+        p_form = ClientForm(instance=request.user)
+
+    client = request.user
+    context = {
+        "client": client,
+        "p_form": p_form,
+        "title": "profile"
+    }
+    return render(request, "profile.html", context)
+
+
+@login_required
+def policy_update(request, id):
+    title = 'Update'
+    post = get_object_or_404(PolicyContent, id=id)
+    form = PolicyForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=post)
+    author = request.user
+    if request.method == "POST":
+        if form.is_valid():
+            form.instance.author = author
+            form.save()
+            return redirect(reverse("policy"), kwargs={
+                'id': form.instance.id
+            })
+    context = {
+        'title': title,
+        'form': form
+    }
+    return render(request, "create_policy.html", context)
 
 
 class HomePage(View):

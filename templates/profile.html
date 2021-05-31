@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+Home
+{% endblock head_title %}
+
+{% block content %}
+<hr class="offset-lg">
+<hr class="offset-lg">
+<div class="container">
+    <div class="row">
+        <!-- Latest Posts -->
+
+        <main class="posts-listing col-lg-8 mt-10">
+            <div class="container">
+                <div class="row">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- {{ p_form | crispy }} -->
+                        <fieldset class="form-group">
+                            <div class="media">
+                                <img class="img-circle" style="height: 250px; width: 250px;"
+                                    src="{{ client.profile_picture.url }}">
+                            </div>
+                            <input class="form-control mt-3" type="text" name="full_name" value="{{ client.full_name }}"
+                                maxlength="50" required="" id="id_name" style="width: 50%;">
+                            Change profile picture:
+                            <input class="filestyle" type="file" name="profile_picture" accept="image/*"
+                                id="id_profile_picture">
+
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-info" type="submit">UPDATE</button>
+                        </div>
+                    </form>
+
+
+
+
+
+
+                </div>
+            </div>
+        </main>
+        <aside class="col-lg-4">
+        </aside>
+    </div>
+</div>
+{% endblock content %}

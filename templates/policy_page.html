@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+Home
+{% endblock head_title %}
+
+{% block content %}
+<hr class="offset-lg">
+<hr class="offset-lg">
+
+<div class="container">
+    <h1>Policy</h1>
+    {% if request.user.is_staff %}
+    <a href="{% url 'create-policy' %}">Add new Policy</a>
+    |
+    <a href="{% url 'update-policy' id=policy.id %}">Update Policy</a>
+    {% endif %}
+    <hr class="offset-md">
+    <div class="">
+        {{ policy.content | safe }}
+    </div>
+</div>
+<hr class="offset-lg">
+{% endblock content %}

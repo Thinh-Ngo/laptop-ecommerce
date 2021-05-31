@@ -1,5 +1,8 @@
 from django.db import models
-from django.conf import settings
+from tinymce import HTMLField
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Category(models.Model):
@@ -27,3 +30,15 @@ class PostImage(models.Model):
 
     def __str__(self):
         return self.post.title
+
+
+class PolicyContent(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_date = models.DateTimeField(auto_now_add=True)
+    from_date = models.DateTimeField(null=True, blank=True)
+    to_date = models.DateTimeField(null=True, blank=True)
+    content = HTMLField()
+    is_valid = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.start_date)
