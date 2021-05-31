@@ -5,9 +5,10 @@ from django.views import View
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from marketing.models import PotentialClient
-from .models import PolicyContent, Unit
+from .models import Help, PolicyContent, Unit
 from .forms import PolicyForm
 from clients.forms import ClientForm
+from .forms import HelpForm
 
 
 def view_policy(request):
@@ -17,6 +18,38 @@ def view_policy(request):
         'policy': policy
     }
     return render(request, "policy_page.html", context)
+
+
+def contact_page(request):
+    form = HelpForm
+    if request.method == 'POST':
+        form = HelpForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            email = data['email']
+            message = data['message']
+
+            contact = Help()
+            contact.email = email
+            contact.message = message
+            contact.save()
+
+            messages.success(
+                request, 'Thank you for reaching out, we connect you soon...')
+            form = HelpForm()
+            context = {
+                'form': form,
+            }
+        else:
+            context = {
+                'form': form,
+            }
+        return render(request, 'contact.html', context)
+    else:
+        form = HelpForm()
+
+    context = {'form': HelpForm}
+    return render(request, 'contact.html', context)
 
 
 @login_required

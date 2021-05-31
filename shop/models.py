@@ -5,6 +5,11 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class Help(models.Model):
+    email = models.EmailField()
+    message = models.TextField()
+
+
 class Category(models.Model):
     title = models.CharField(max_length=50)
 

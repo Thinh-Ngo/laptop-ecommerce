@@ -1,6 +1,6 @@
 from django import forms
 from tinymce import TinyMCE
-from .models import PolicyContent
+from .models import Help, PolicyContent
 
 
 class TinyMCEWidget(TinyMCE):
@@ -18,3 +18,9 @@ class PolicyForm(forms.ModelForm):
     class Meta:
         model = PolicyContent
         fields = ('from_date', 'to_date', 'content')
+
+
+class HelpForm(forms.ModelForm):
+    class Meta:
+        model = Help
+        fields = '__all__'
