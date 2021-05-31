@@ -36,7 +36,9 @@ class Client(AbstractBaseUser, PermissionsMixin):
         max_length=191,
         blank=True,
     )
-    profile_picture = models.ImageField(default='default.jpg')
+    profile_picture = models.ImageField(
+        blank=True, null=True, default='niceblog/blog-2_zq82wf.jpg'
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
